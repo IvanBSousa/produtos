@@ -1,9 +1,12 @@
 package caixa.caixaverso.model;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 public class Produtos {
@@ -13,7 +16,7 @@ public class Produtos {
     private Long id;
     private String nome;
     private String descricao;
-    private Double preco;
+    private BigDecimal preco;
 
     public Long getId() {
         return id;
@@ -24,7 +27,7 @@ public class Produtos {
     public String getDescricao() {
         return descricao;
     }
-    public Double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
@@ -37,11 +40,11 @@ public class Produtos {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    public void setPreco(Double preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 
-    public Produtos(String nome, String descricao, Double preco) {
+    public Produtos(String nome, String descricao, BigDecimal preco) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;

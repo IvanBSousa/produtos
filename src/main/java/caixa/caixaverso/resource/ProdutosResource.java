@@ -3,6 +3,7 @@ package caixa.caixaverso.resource;
 import caixa.caixaverso.dto.ProdutosDTO;
 import caixa.caixaverso.service.ProdutosService;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -26,10 +27,8 @@ public class ProdutosResource {
     }
 
     @POST
-    @Path("/produtos")
     @Transactional
-    public Response createProduto(ProdutosDTO produtosDTO) {
-
+    public Response createProduto(@Valid ProdutosDTO produtosDTO) {
         produtosService.criaProduto(produtosDTO);
         return Response.status(Response.Status.CREATED).build();
     }
@@ -41,24 +40,36 @@ public class ProdutosResource {
     }
 
     @GET
-    @Path("/produtos/{id}")
+    @Path("/{id}")
     public Response consultaProdutoPorId(@PathParam(value = "id") Long id) {
         var produto = produtosService.findProdutoById(id);
+        if (produto == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
         return Response.status(Response.Status.OK).entity(produto).build();
+        
     }
 
     @PUT
-    @Path("/produtos/{id}")
+    @Path("/{id}")
     @Transactional
-    public Response updateProduto(@PathParam(value = "id") Long id, ProdutosDTO produtosDTO) {
+    public Response updateProduto(@PathParam(value = "id") Long id, @Valid ProdutosDTO produtosDTO) {
+        var produtoExistente = produtosService.findProdutoById(id);
+        if (produtoExistente == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
         produtosService.atualizaProduto(id, produtosDTO);
         return Response.status(Response.Status.OK).build();
     }
 
     @DELETE
-    @Path("/produtos/{id}")
+    @Path("/{id}")
     @Transactional
     public Response deleteProduto(@PathParam(value = "id") Long id) {
+        var produtoExistente = produtosService.findProdutoById(id);
+        if (produtoExistente == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
         produtosService.deleteProduto(id);
         return Response.status(Response.Status.NO_CONTENT).build();
     }
