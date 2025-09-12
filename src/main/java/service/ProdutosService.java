@@ -1,11 +1,11 @@
-package caixa.caixaverso.service;
+package service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import caixa.caixaverso.dto.ProdutosDTO;
-import caixa.caixaverso.model.Produtos;
-import caixa.caixaverso.repository.ProdutosRepository;
+import dto.ProdutosDTO;
+import model.Produtos;
+import repository.ProdutosRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
@@ -18,7 +18,7 @@ public class ProdutosService {
     }
 
     public void criaProduto(ProdutosDTO produtosDTO) {
-        var produto = new Produtos(produtosDTO.nome(), produtosDTO.descricao(), produtosDTO.preco());
+        var produto = new Produtos(produtosDTO.nome(), produtosDTO.descricao(), produtosDTO.preco(), produtosDTO.desconto());
         produtosRepository.persist(produto);
     }
 
@@ -35,14 +35,14 @@ public class ProdutosService {
     public List<ProdutosDTO> findAllProdutos() {
         var produtos = produtosRepository.listAll();
         return produtos.stream()
-                .map(p -> new ProdutosDTO(p.getNome(), p.getDescricao(), p.getPreco()))
+                .map(p -> new ProdutosDTO(p.getNome(), p.getDescricao(), p.getPreco(), p.getDesconto()))
                 .collect(Collectors.toList());
     }
 
     public ProdutosDTO findProdutoById(Long id) {
         var produto = produtosRepository.findById(id);
         if (produto != null) {
-            return new ProdutosDTO(produto.getNome(), produto.getDescricao(), produto.getPreco());
+            return new ProdutosDTO(produto.getNome(), produto.getDescricao(), produto.getPreco(), produto.getDesconto());
         }
         return null;
     }

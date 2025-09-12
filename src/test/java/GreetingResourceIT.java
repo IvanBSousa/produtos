@@ -1,4 +1,3 @@
-package caixa.caixaverso;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 

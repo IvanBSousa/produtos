@@ -1,4 +1,3 @@
-package caixa.caixaverso;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;

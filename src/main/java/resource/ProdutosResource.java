@@ -1,7 +1,7 @@
-package caixa.caixaverso.resource;
+package resource;
 
-import caixa.caixaverso.dto.ProdutosDTO;
-import caixa.caixaverso.service.ProdutosService;
+import dto.ProdutosDTO;
+import service.ProdutosService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;

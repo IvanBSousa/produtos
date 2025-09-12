@@ -1,4 +1,4 @@
-package caixa.caixaverso.anotations;
+package anotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -16,7 +16,7 @@ import jakarta.validation.Payload;
 @Constraint(validatedBy = NumericValidator.class) // Indica qual classe fará a validação
 @Target({ ElementType.FIELD, ElementType.PARAMETER }) // Pode ser usada em atributos e parâmetros
 @Retention(RetentionPolicy.RUNTIME)
-public @interface IsNumeric {
+public @interface Numeric {
 
     String message() default "O valor deve ser numérico";
 

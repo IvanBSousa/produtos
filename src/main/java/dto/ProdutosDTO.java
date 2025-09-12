@@ -1,11 +1,10 @@
-package caixa.caixaverso.dto;
+package dto;
 
 import java.math.BigDecimal;
 
-import caixa.caixaverso.anotations.IsNumeric;
+import anotations.Numeric;
 import io.smallrye.common.constraint.NotNull;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 
 public record ProdutosDTO(
@@ -17,7 +16,12 @@ public record ProdutosDTO(
     
     @NotNull
     @Positive
-    @IsNumeric
-    BigDecimal preco) {
+    @Numeric
+    BigDecimal preco,
+    
+    @NotNull
+    @Numeric
+    Double desconto
+    ) {
 
 }
