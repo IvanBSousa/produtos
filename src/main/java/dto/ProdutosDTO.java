@@ -17,11 +17,7 @@ public record ProdutosDTO(
     @NotNull
     @Positive
     @Numeric
-    BigDecimal preco,
-    
-    @NotNull
-    @Numeric
-    Double desconto
+    BigDecimal preco
     ) {
 
 }

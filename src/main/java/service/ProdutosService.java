@@ -18,7 +18,7 @@ public class ProdutosService {
     }
 
     public void criaProduto(ProdutosDTO produtosDTO) {
-        var produto = new Produtos(produtosDTO.nome(), produtosDTO.descricao(), produtosDTO.preco(), produtosDTO.desconto());
+        var produto = new Produtos(produtosDTO.nome(), produtosDTO.descricao(), produtosDTO.preco());
         produtosRepository.persist(produto);
     }
 
@@ -35,14 +35,14 @@ public class ProdutosService {
     public List<ProdutosDTO> findAllProdutos() {
         var produtos = produtosRepository.listAll();
         return produtos.stream()
-                .map(p -> new ProdutosDTO(p.getNome(), p.getDescricao(), p.getPreco(), p.getDesconto()))
+                .map(p -> new ProdutosDTO(p.getNome(), p.getDescricao(), p.getPreco()))
                 .collect(Collectors.toList());
     }
 
     public ProdutosDTO findProdutoById(Long id) {
         var produto = produtosRepository.findById(id);
         if (produto != null) {
-            return new ProdutosDTO(produto.getNome(), produto.getDescricao(), produto.getPreco(), produto.getDesconto());
+            return new ProdutosDTO(produto.getNome(), produto.getDescricao(), produto.getPreco());
         }
         return null;
     }

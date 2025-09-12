@@ -1,7 +1,13 @@
 package model;
 
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,14 +22,15 @@ public class Produtos {
     private String nome;
     private String descricao;
     private BigDecimal preco;
-    private Double desconto;
 
-    public Double getDesconto() {
-        return desconto;
-    }
-    public void setDesconto(Double desconto) {
-        this.desconto = desconto;
-    }
+    @CreationTimestamp
+    @Column(name = "criado_em", updatable = false)
+    private LocalDateTime dataCriacao;
+
+    @UpdateTimestamp
+    @Column(name = "modificado_em")
+    private LocalDateTime dataModificacao;
+
     public Long getId() {
         return id;
     }
@@ -35,6 +42,14 @@ public class Produtos {
     }
     public BigDecimal getPreco() {
         return preco;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public LocalDateTime getDataModificacao() {
+        return dataModificacao;
     }
 
     public void setId(Long id) {
@@ -50,14 +65,24 @@ public class Produtos {
         this.preco = preco;
     }
 
-    public Produtos(String nome, String descricao, BigDecimal preco, Double desconto) {
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public void setDataModificacao(LocalDateTime dataModificacao) {
+        this.dataModificacao = dataModificacao;
+    }
+
+    public Produtos(String nome, String descricao, BigDecimal preco) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
-        this.desconto = desconto;
     }
 
     public Produtos() {
+    }
+    public Produtos(Object setDataCriacao) {
+        //TODO Auto-generated constructor stub
     }
 
 }
