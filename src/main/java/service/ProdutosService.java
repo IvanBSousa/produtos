@@ -7,6 +7,7 @@ import dto.ProdutosDTO;
 import model.Produtos;
 import repository.ProdutosRepository;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class ProdutosService {
@@ -17,11 +18,13 @@ public class ProdutosService {
         this.produtosRepository = produtosRepository;
     }
 
+    @Transactional
     public void criaProduto(ProdutosDTO produtosDTO) {
         var produto = new Produtos(produtosDTO.nome(), produtosDTO.descricao(), produtosDTO.preco());
         produtosRepository.persist(produto);
     }
 
+    @Transactional
     public void atualizaProduto(Long id, ProdutosDTO produtosDTO) {
         var produto = produtosRepository.findById(id);
         if (produto != null) {
@@ -47,6 +50,7 @@ public class ProdutosService {
         return null;
     }
 
+    @Transactional
     public void deleteProduto(Long id) {
         produtosRepository.deleteById(id);
     }

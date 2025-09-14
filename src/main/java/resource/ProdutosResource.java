@@ -2,7 +2,7 @@ package resource;
 
 import dto.ProdutosDTO;
 import service.ProdutosService;
-import jakarta.transaction.Transactional;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -27,13 +27,14 @@ public class ProdutosResource {
     }
 
     @POST
-    @Transactional
+    @RolesAllowed({"admin"})
     public Response createProduto(@Valid ProdutosDTO produtosDTO) {
         produtosService.criaProduto(produtosDTO);
         return Response.status(Response.Status.CREATED).build();
     }
 
     @GET
+    @RolesAllowed({"admin", "user"})
     public Response consultaProdutos() {
         var todosProdutos = produtosService.findAllProdutos();
         return Response.status(Response.Status.OK).entity(todosProdutos).build();
@@ -41,18 +42,18 @@ public class ProdutosResource {
 
     @GET
     @Path("/{id}")
+    @RolesAllowed({"admin", "user"})
     public Response consultaProdutoPorId(@PathParam(value = "id") Long id) {
         var produto = produtosService.findProdutoById(id);
         if (produto == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         return Response.status(Response.Status.OK).entity(produto).build();
-        
     }
 
     @PUT
     @Path("/{id}")
-    @Transactional
+    @RolesAllowed({"admin"})
     public Response updateProduto(@PathParam(value = "id") Long id, @Valid ProdutosDTO produtosDTO) {
         var produtoExistente = produtosService.findProdutoById(id);
         if (produtoExistente == null) {
@@ -64,7 +65,7 @@ public class ProdutosResource {
 
     @DELETE
     @Path("/{id}")
-    @Transactional
+    @RolesAllowed({"admin"})
     public Response deleteProduto(@PathParam(value = "id") Long id) {
         var produtoExistente = produtosService.findProdutoById(id);
         if (produtoExistente == null) {
