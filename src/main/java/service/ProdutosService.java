@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import dto.ProdutosDTO;
+import io.quarkus.logging.Log;
 import model.Produtos;
 import repository.ProdutosRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -45,6 +46,7 @@ public class ProdutosService {
     public ProdutosDTO findProdutoById(Long id) {
         var produto = produtosRepository.findById(id);
         if (produto != null) {
+            Log.info("Produto encontrado no Banco de Dados");
             return new ProdutosDTO(produto.getNome(), produto.getDescricao(), produto.getPreco());
         }
         return null;

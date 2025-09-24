@@ -1,6 +1,10 @@
 package resource;
 
 import dto.ProdutosDTO;
+import io.quarkus.cache.CacheInvalidateAll;
+import io.quarkus.cache.CacheResult;
+import io.quarkus.security.Authenticated;
+import io.vertx.codegen.annotations.CacheReturn;
 import service.ProdutosService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
@@ -16,6 +20,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("/produtos")
+@Authenticated
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProdutosResource {
@@ -28,6 +33,7 @@ public class ProdutosResource {
 
     @POST
     @RolesAllowed({"admin"})
+    @CacheInvalidateAll(cacheName = "produtos-cache")
     public Response createProduto(@Valid ProdutosDTO produtosDTO) {
         produtosService.criaProduto(produtosDTO);
         return Response.status(Response.Status.CREATED).build();
@@ -43,6 +49,7 @@ public class ProdutosResource {
     @GET
     @Path("/{id}")
     @RolesAllowed({"admin", "user"})
+    @CacheResult(cacheName = "produtos-cache")
     public Response consultaProdutoPorId(@PathParam(value = "id") Long id) {
         var produto = produtosService.findProdutoById(id);
         if (produto == null) {
@@ -54,6 +61,7 @@ public class ProdutosResource {
     @PUT
     @Path("/{id}")
     @RolesAllowed({"admin"})
+    @CacheInvalidateAll(cacheName = "produtos-cache")
     public Response updateProduto(@PathParam(value = "id") Long id, @Valid ProdutosDTO produtosDTO) {
         var produtoExistente = produtosService.findProdutoById(id);
         if (produtoExistente == null) {
@@ -66,6 +74,7 @@ public class ProdutosResource {
     @DELETE
     @Path("/{id}")
     @RolesAllowed({"admin"})
+    @CacheInvalidateAll(cacheName = "produtos-cache")
     public Response deleteProduto(@PathParam(value = "id") Long id) {
         var produtoExistente = produtosService.findProdutoById(id);
         if (produtoExistente == null) {
