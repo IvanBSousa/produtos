@@ -80,8 +80,5 @@ public class Produtos {
 
     public Produtos() {
     }
-    public Produtos(Object setDataCriacao) {
-        //TODO Auto-generated constructor stub
-    }
-
+   
 }
