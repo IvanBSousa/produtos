@@ -4,7 +4,6 @@ import dto.ProdutosDTO;
 import io.quarkus.cache.CacheInvalidateAll;
 import io.quarkus.cache.CacheResult;
 import io.quarkus.security.Authenticated;
-import io.vertx.codegen.annotations.CacheReturn;
 import service.ProdutosService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
