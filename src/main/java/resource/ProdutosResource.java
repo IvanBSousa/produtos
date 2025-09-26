@@ -1,6 +1,6 @@
 package resource;
 
-import dto.ProdutosDTO;
+import dto.RequestDTO;
 import io.quarkus.cache.CacheInvalidateAll;
 import io.quarkus.cache.CacheResult;
 import io.quarkus.security.Authenticated;
@@ -33,7 +33,7 @@ public class ProdutosResource {
     @POST
     @RolesAllowed({"admin"})
     @CacheInvalidateAll(cacheName = "produtos-cache")
-    public Response createProduto(@Valid ProdutosDTO produtosDTO) {
+    public Response createProduto(@Valid RequestDTO produtosDTO) {
         produtosService.criaProduto(produtosDTO);
         return Response.status(Response.Status.CREATED).build();
     }
@@ -61,7 +61,7 @@ public class ProdutosResource {
     @Path("/{id}")
     @RolesAllowed({"admin"})
     @CacheInvalidateAll(cacheName = "produtos-cache")
-    public Response updateProduto(@PathParam(value = "id") Long id, @Valid ProdutosDTO produtosDTO) {
+    public Response updateProduto(@PathParam(value = "id") Long id, @Valid RequestDTO produtosDTO) {
         var produtoExistente = produtosService.findProdutoById(id);
         if (produtoExistente == null) {
             return Response.status(Response.Status.NOT_FOUND).build();

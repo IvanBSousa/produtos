@@ -12,10 +12,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import dto.ProdutosDTO;
+import dto.RequestDTO;
+import dto.ResponseDTO;
+import io.quarkus.test.junit.QuarkusTest;
 import model.Produtos;
 import repository.ProdutosRepository;
 
+@QuarkusTest
 public class ProdutosServiceTest {
 
     @Mock
@@ -31,7 +34,7 @@ public class ProdutosServiceTest {
 
     @Test
     void testCriaProduto() {
-        ProdutosDTO dto = new ProdutosDTO("Produto Test", "Descrição Test", new BigDecimal("10.50"));
+        RequestDTO dto = new RequestDTO("Produto Test", "Descrição Test", new BigDecimal("10.50"));
         produtosService.criaProduto(dto);
         verify(produtosRepository).persist(any(Produtos.class));
     }
@@ -39,7 +42,7 @@ public class ProdutosServiceTest {
     @Test
     void testAtualizaProdutoWhenExists() {
         Long id = 1L;
-        ProdutosDTO dto = new ProdutosDTO("Produto Atualizado", "Nova Descrição", new BigDecimal("15.75"));
+        RequestDTO dto = new RequestDTO("Produto Atualizado", "Nova Descrição", new BigDecimal("15.75"));
         Produtos existingProduto = new Produtos("Produto Antigo", "Descrição Antiga", new BigDecimal("10.00"));
         
         when(produtosRepository.findById(id)).thenReturn(existingProduto);
@@ -55,7 +58,7 @@ public class ProdutosServiceTest {
     @Test
     void testAtualizaProdutoWhenNotExists() {
         Long id = 999L;
-        ProdutosDTO dto = new ProdutosDTO("Produto", "Descrição", new BigDecimal("10.00"));
+        RequestDTO dto = new RequestDTO("Produto", "Descrição", new BigDecimal("10.00"));
         
         when(produtosRepository.findById(id)).thenReturn(null);
         
@@ -72,7 +75,7 @@ public class ProdutosServiceTest {
         
         when(produtosRepository.listAll()).thenReturn(produtos);
         
-        List<ProdutosDTO> result = produtosService.findAllProdutos();
+        List<ResponseDTO> result = produtosService.findAllProdutos();
         
         assertEquals(2, result.size());
         assertEquals("Produto 1", result.get(0).nome());
@@ -86,7 +89,7 @@ public class ProdutosServiceTest {
         
         when(produtosRepository.findById(id)).thenReturn(produto);
         
-        ProdutosDTO result = produtosService.findProdutoById(id);
+        ResponseDTO result = produtosService.findProdutoById(id);
         
         assertNotNull(result);
         assertEquals("Produto Test", result.nome());
@@ -98,7 +101,7 @@ public class ProdutosServiceTest {
     void testFindProdutoByIdWhenNotExists() {
         Long id = 999L;
         when(produtosRepository.findById(id)).thenReturn(null);
-        ProdutosDTO result = produtosService.findProdutoById(id);
+        ResponseDTO result = produtosService.findProdutoById(id);
         assertNull(result);
     }
 

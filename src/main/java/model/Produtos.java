@@ -1,11 +1,8 @@
 package model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
+import java.time.Instant;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,11 +21,7 @@ public class Produtos {
 
     @CreationTimestamp
     @Column(name = "criado_em", updatable = false)
-    private LocalDateTime dataCriacao;
-
-    @UpdateTimestamp
-    @Column(name = "modificado_em")
-    private LocalDateTime dataModificacao;
+    private Instant dataCriacao;
 
     public Long getId() {
         return id;
@@ -43,12 +36,8 @@ public class Produtos {
         return preco;
     }
 
-    public LocalDateTime getDataCriacao() {
+    public Instant getDataCriacao() {
         return dataCriacao;
-    }
-
-    public LocalDateTime getDataModificacao() {
-        return dataModificacao;
     }
 
     public void setId(Long id) {
@@ -64,12 +53,8 @@ public class Produtos {
         this.preco = preco;
     }
 
-    public void setDataCriacao(LocalDateTime dataCriacao) {
+    public void setDataCriacao(Instant dataCriacao) {
         this.dataCriacao = dataCriacao;
-    }
-
-    public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = dataModificacao;
     }
 
     public Produtos(String nome, String descricao, BigDecimal preco) {
@@ -80,5 +65,8 @@ public class Produtos {
 
     public Produtos() {
     }
+
+
+    
    
 }

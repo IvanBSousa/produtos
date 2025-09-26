@@ -7,7 +7,7 @@ import io.smallrye.common.constraint.NotNull;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
-public record ProdutosDTO(
+public record RequestDTO(
     
     @NotBlank
     String nome, 

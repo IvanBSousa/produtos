@@ -3,13 +3,11 @@ package service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.eclipse.microprofile.reactive.messaging.Outgoing;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import dto.ProdutosDTO;
+import dto.RequestDTO;
+import dto.ResponseDTO;
 import io.quarkus.logging.Log;
 import io.quarkus.narayana.jta.QuarkusTransaction;
 import io.smallrye.reactive.messaging.annotations.Channel;
@@ -34,14 +32,16 @@ public class ProdutosService {
     Emitter<String> emissor;
 
     //@Outgoing("produto-criado")
-    public void criaProduto(ProdutosDTO produtosDTO) {
+    public void criaProduto(RequestDTO produtosDTO) {
         var produto = new Produtos(produtosDTO.nome(), produtosDTO.descricao(), produtosDTO.preco());
         QuarkusTransaction.requiringNew().run(() -> {
             produtosRepository.persist(produto);
         });
         try {
+            var resposta = new ResponseDTO(produto.getId(), produto.getNome(), produto.getDescricao(), produto.getPreco(), produto.getDataCriacao());
             ObjectMapper mapper = new ObjectMapper();
-            String json = mapper.writeValueAsString(produtosDTO);
+            mapper.registerModule(new JavaTimeModule());
+            String json = mapper.writeValueAsString(resposta);
             emissor.send(json);
             Log.info("Mensagem enviada para o Kafka: " + json);
         } catch (Exception e) {
@@ -50,7 +50,7 @@ public class ProdutosService {
     }
 
     @Transactional
-    public void atualizaProduto(Long id, ProdutosDTO produtosDTO) {
+    public void atualizaProduto(Long id, RequestDTO produtosDTO) {
         var produto = produtosRepository.findById(id);
         if (produto != null) {
             produto.setNome(produtosDTO.nome());
@@ -60,18 +60,18 @@ public class ProdutosService {
         }
     }
 
-    public List<ProdutosDTO> findAllProdutos() {
+    public List<ResponseDTO> findAllProdutos() {
         var produtos = produtosRepository.listAll();
         return produtos.stream()
-                .map(p -> new ProdutosDTO(p.getNome(), p.getDescricao(), p.getPreco()))
+                .map(p -> new ResponseDTO(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getDataCriacao()))
                 .collect(Collectors.toList());
     }
 
-    public ProdutosDTO findProdutoById(Long id) {
+    public ResponseDTO findProdutoById(Long id) {
         var produto = produtosRepository.findById(id);
         if (produto != null) {
             Log.info("Produto encontrado no Banco de Dados");
-            return new ProdutosDTO(produto.getNome(), produto.getDescricao(), produto.getPreco());
+            return new ResponseDTO(produto.getId(),produto.getNome(), produto.getDescricao(), produto.getPreco(), produto.getDataCriacao());
         }
         return null;
     }
