@@ -1,15 +1,22 @@
 package service;
 
-import org.apache.kafka.clients.consumer.Consumer;
+import org.eclipse.microprofile.reactive.messaging.Incoming;
 
-import io.smallrye.reactive.messaging.annotations.Channel;
-import jakarta.inject.Inject;
+import io.quarkus.logging.Log;
 
 public class ConsumidorKafka {
 
-    @Inject
-    @Channel("produto-topic-in")
-    Consumer<String, String> consumidor;
+  
+
+    /**
+     * Método que consome mensagens do tópico "produto-topic-out".
+     * Cada mensagem publicada será recebida aqui.
+     */
+    @Incoming("produto-topic-in")
+    public void consume(String mensagem) {
+        // Aqui você processa a mensagem recebida
+        Log.info("Mensagem recebida do Kafka: " + mensagem);
+    }
 
    
 
