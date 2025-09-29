@@ -3,20 +3,22 @@ package service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import dto.RequestDTO;
 import dto.ResponseDTO;
+import io.quarkus.arc.profile.UnlessBuildProfile;
 import io.quarkus.logging.Log;
 import io.quarkus.narayana.jta.QuarkusTransaction;
 import io.smallrye.reactive.messaging.annotations.Channel;
 import io.smallrye.reactive.messaging.annotations.Emitter;
-import model.Produtos;
-import repository.ProdutosRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import model.Produtos;
+import repository.ProdutosRepository;
 
 @ApplicationScoped
 public class ProdutosService {
@@ -27,6 +29,7 @@ public class ProdutosService {
         this.produtosRepository = produtosRepository;
     }
 
+    @UnlessBuildProfile("test")
     @Inject
     @Channel("produto-topic-out")
     Emitter<String> emissor;
@@ -44,9 +47,9 @@ public class ProdutosService {
             String json = mapper.writeValueAsString(resposta);
             emissor.send(json);
             Log.info("Mensagem enviada para o Kafka: " + json);
-        } catch (Exception e) {
+        } catch (JsonProcessingException e) {
             Log.error("Erro ao serializar produto para Kafka", e);
-    }
+        }
     }
 
     @Transactional

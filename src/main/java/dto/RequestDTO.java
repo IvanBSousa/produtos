@@ -16,7 +16,7 @@ public record RequestDTO(
     
     @NotNull
     @Positive
-    @Numeric
+    @Numeric 
     BigDecimal preco
     ) {
 

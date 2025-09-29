@@ -2,7 +2,9 @@ package model;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+
 import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,7 +37,6 @@ public class Produtos {
     public BigDecimal getPreco() {
         return preco;
     }
-
     public Instant getDataCriacao() {
         return dataCriacao;
     }
@@ -52,7 +53,6 @@ public class Produtos {
     public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
-
     public void setDataCriacao(Instant dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
