@@ -33,6 +33,12 @@ public class ProdutosService {
     @Channel("produto-topic-out")
     Emitter<String> emissor;
 
+    // Adicione setter
+    public void setEmissor(Emitter<String> emissor) {
+        this.emissor = emissor;
+    }
+
+
     public void criaProduto(RequestDTO produtosDTO) {
         var produto = new Produtos(produtosDTO.nome(), produtosDTO.descricao(), produtosDTO.preco());
         QuarkusTransaction.requiringNew().run(() -> {
