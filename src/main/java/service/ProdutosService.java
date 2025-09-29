@@ -3,17 +3,17 @@ package service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import dto.RequestDTO;
 import dto.ResponseDTO;
-import io.quarkus.arc.profile.UnlessBuildProfile;
 import io.quarkus.logging.Log;
 import io.quarkus.narayana.jta.QuarkusTransaction;
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.eclipse.microprofile.reactive.messaging.Emitter;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -29,12 +29,10 @@ public class ProdutosService {
         this.produtosRepository = produtosRepository;
     }
 
-    @UnlessBuildProfile("test")
     @Inject
     @Channel("produto-topic-out")
     Emitter<String> emissor;
 
-    //@Outgoing("produto-criado")
     public void criaProduto(RequestDTO produtosDTO) {
         var produto = new Produtos(produtosDTO.nome(), produtosDTO.descricao(), produtosDTO.preco());
         QuarkusTransaction.requiringNew().run(() -> {

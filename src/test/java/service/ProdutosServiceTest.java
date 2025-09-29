@@ -1,45 +1,92 @@
 package service;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.ArgumentCaptor;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import dto.RequestDTO;
 import dto.ResponseDTO;
+import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
+import jakarta.inject.Inject;
 import model.Produtos;
 import repository.ProdutosRepository;
 
 @QuarkusTest
 public class ProdutosServiceTest {
 
-    @Mock
-    private ProdutosRepository produtosRepository;
+    @Inject
+    ProdutosService produtosService;
 
-    private ProdutosService produtosService;
+    @InjectMock
+    ProdutosRepository produtosRepository;
 
+    @InjectMock
+    @Channel("produto-topic-out")
+    Emitter<String> emissor;
+
+
+    private ObjectMapper mapper;
 
     @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        produtosService = new ProdutosService(produtosRepository);
+    void setup() {
+        mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
     }
 
+
+
     @Test
-    void testCriaProduto() {
-        RequestDTO dto = new RequestDTO("Produto Test", "Descrição Test", new BigDecimal("10.50"));
+    void testCriaProduto() throws Exception {
+        // Arrange
+        RequestDTO dto = new RequestDTO("Café", "Café preto forte", new BigDecimal("9.90"));
+
+        // Mock persist -> simula que o banco atribuiu um ID ao produto
+        doAnswer(invocation -> {
+            Produtos p = invocation.getArgument(0);
+            p.setId(1L); // simula ID do banco
+            return null;
+        }).when(produtosRepository).persist(any(Produtos.class));
+
+        // Act
         produtosService.criaProduto(dto);
+
+        // Assert: repositorio persistiu
         verify(produtosRepository).persist(any(Produtos.class));
+
+        // Captura o JSON enviado
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        verify(emissor, times(1)).send(captor.capture());
+
+        String jsonEnviado = captor.getValue();
+        System.out.println("JSON enviado: " + jsonEnviado);
+
+        // Verifica se o JSON contem os campos esperados
+        assertTrue(jsonEnviado.contains("Café"));
+        assertTrue(jsonEnviado.contains("Café preto forte"));
+        assertTrue(jsonEnviado.contains("9.90"));
+        assertTrue(jsonEnviado.contains("1")); // ID simulado
     }
+
 
     @Test
     void testAtualizaProdutoWhenExists() {
