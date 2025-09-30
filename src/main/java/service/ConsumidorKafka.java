@@ -15,7 +15,7 @@ public class ConsumidorKafka {
     public void consume(String mensagem) {
        try {
             ObjectMapper mapper = new ObjectMapper();
-            mapper.registerModule(new JavaTimeModule()); // Para lidar com tipos Java 8 como LocalDateTime
+            mapper.registerModule(new JavaTimeModule());
             ResponseDTO produto = mapper.readValue(mensagem, ResponseDTO.class);
 
             Log.info("Produto recebido do Kafka: " + produto);
