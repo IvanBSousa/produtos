@@ -1,0 +1,335 @@
+{
+	"info": {
+		"_postman_id": "68dc2a1b-9796-40c2-a5a2-e36fbca5646f",
+		"name": "Produtos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46913680",
+		"_collection_link": "https://ivansousa-2596751.postman.co/workspace/Ivan-Sousa's-Workspace~8bd418c0-e952-41a5-8d2b-5632e6f944db/collection/46913680-68dc2a1b-9796-40c2-a5a2-e36fbca5646f?action=share&source=collection_link&creator=46913680"
+	},
+	"item": [
+		{
+			"name": "Consulta_todos",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ0S2xCTDJ3Nk1mNEQ5bWMtN0dwemR6UExHSmVYWDgzdHRQOEpER0pwOTg4In0.eyJleHAiOjE3NTkxODk2ODIsImlhdCI6MTc1OTE4OTA4MiwianRpIjoib25ydHJvOmQ2M2ZhYWQ3LWZkMDAtZDg2My1mZDhiLTU5MzdhM2Y0NDA1MyIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDUxODAvcmVhbG1zL3F1YXJrdXMiLCJzdWIiOiJhMzFmOWE0Yi1kOTg2LTQ0ZDItOGU1My1lNDNhNWM4NjY2OWMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWFya3VzLWFwcCIsInNpZCI6IjE1MDExODRlLTJlZTItNGRiNS04NDUwLTUzYzcxZTdjYmI3ZSIsInNjb3BlIjoibWljcm9wcm9maWxlLWp3dCIsInVwbiI6ImFsaWNlIiwiZ3JvdXBzIjpbImFkbWluIiwidXNlciJdfQ.UK-a96hCJKKHDiABYOggYgCuxhk-oQFt8lLFnxFRePWpEGfQDIymci5bU3z3mVgUCjTNs7AkEOebz4kqDizIznAdsDxUnXIAGPrErLd-XE8otNxGfcd2vlcNWztelzc0-W6uThoyL8bQSQqyaIAfEFUmyOyHIggrHa_YMumSrv8q3i5Tz8klSU1SLrVoj9F53v_gMwzVlQecyUwI11RIIG77N8Hsk9BxU5WjAw0KFe-uQ1id-ewbsZHbxQdCQW0DvYhs0Xg5Q8F49Ur_QmLnreARZbD6PHCFaOucxLkAMaf5e1mFbm1lOd4ncmUoTH8LtC0kSVNMVzy0sltdiCXQJg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/produtos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastra_produto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ0S2xCTDJ3Nk1mNEQ5bWMtN0dwemR6UExHSmVYWDgzdHRQOEpER0pwOTg4In0.eyJleHAiOjE3NTkxODk2ODIsImlhdCI6MTc1OTE4OTA4MiwianRpIjoib25ydHJvOmQ2M2ZhYWQ3LWZkMDAtZDg2My1mZDhiLTU5MzdhM2Y0NDA1MyIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDUxODAvcmVhbG1zL3F1YXJrdXMiLCJzdWIiOiJhMzFmOWE0Yi1kOTg2LTQ0ZDItOGU1My1lNDNhNWM4NjY2OWMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWFya3VzLWFwcCIsInNpZCI6IjE1MDExODRlLTJlZTItNGRiNS04NDUwLTUzYzcxZTdjYmI3ZSIsInNjb3BlIjoibWljcm9wcm9maWxlLWp3dCIsInVwbiI6ImFsaWNlIiwiZ3JvdXBzIjpbImFkbWluIiwidXNlciJdfQ.UK-a96hCJKKHDiABYOggYgCuxhk-oQFt8lLFnxFRePWpEGfQDIymci5bU3z3mVgUCjTNs7AkEOebz4kqDizIznAdsDxUnXIAGPrErLd-XE8otNxGfcd2vlcNWztelzc0-W6uThoyL8bQSQqyaIAfEFUmyOyHIggrHa_YMumSrv8q3i5Tz8klSU1SLrVoj9F53v_gMwzVlQecyUwI11RIIG77N8Hsk9BxU5WjAw0KFe-uQ1id-ewbsZHbxQdCQW0DvYhs0Xg5Q8F49Ur_QmLnreARZbD6PHCFaOucxLkAMaf5e1mFbm1lOd4ncmUoTH8LtC0kSVNMVzy0sltdiCXQJg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\":\"Calça\",\r\n    \"descricao\":\"Calça jeans\",\r\n    \"preco\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/produtos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consulta_por_id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ0S2xCTDJ3Nk1mNEQ5bWMtN0dwemR6UExHSmVYWDgzdHRQOEpER0pwOTg4In0.eyJleHAiOjE3NTkxODk2ODIsImlhdCI6MTc1OTE4OTA4MiwianRpIjoib25ydHJvOmQ2M2ZhYWQ3LWZkMDAtZDg2My1mZDhiLTU5MzdhM2Y0NDA1MyIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDUxODAvcmVhbG1zL3F1YXJrdXMiLCJzdWIiOiJhMzFmOWE0Yi1kOTg2LTQ0ZDItOGU1My1lNDNhNWM4NjY2OWMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWFya3VzLWFwcCIsInNpZCI6IjE1MDExODRlLTJlZTItNGRiNS04NDUwLTUzYzcxZTdjYmI3ZSIsInNjb3BlIjoibWljcm9wcm9maWxlLWp3dCIsInVwbiI6ImFsaWNlIiwiZ3JvdXBzIjpbImFkbWluIiwidXNlciJdfQ.UK-a96hCJKKHDiABYOggYgCuxhk-oQFt8lLFnxFRePWpEGfQDIymci5bU3z3mVgUCjTNs7AkEOebz4kqDizIznAdsDxUnXIAGPrErLd-XE8otNxGfcd2vlcNWztelzc0-W6uThoyL8bQSQqyaIAfEFUmyOyHIggrHa_YMumSrv8q3i5Tz8klSU1SLrVoj9F53v_gMwzVlQecyUwI11RIIG77N8Hsk9BxU5WjAw0KFe-uQ1id-ewbsZHbxQdCQW0DvYhs0Xg5Q8F49Ur_QmLnreARZbD6PHCFaOucxLkAMaf5e1mFbm1lOd4ncmUoTH8LtC0kSVNMVzy0sltdiCXQJg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/produtos/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualiza_produto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ0S2xCTDJ3Nk1mNEQ5bWMtN0dwemR6UExHSmVYWDgzdHRQOEpER0pwOTg4In0.eyJleHAiOjE3NTkxODk2ODIsImlhdCI6MTc1OTE4OTA4MiwianRpIjoib25ydHJvOmQ2M2ZhYWQ3LWZkMDAtZDg2My1mZDhiLTU5MzdhM2Y0NDA1MyIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDUxODAvcmVhbG1zL3F1YXJrdXMiLCJzdWIiOiJhMzFmOWE0Yi1kOTg2LTQ0ZDItOGU1My1lNDNhNWM4NjY2OWMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWFya3VzLWFwcCIsInNpZCI6IjE1MDExODRlLTJlZTItNGRiNS04NDUwLTUzYzcxZTdjYmI3ZSIsInNjb3BlIjoibWljcm9wcm9maWxlLWp3dCIsInVwbiI6ImFsaWNlIiwiZ3JvdXBzIjpbImFkbWluIiwidXNlciJdfQ.UK-a96hCJKKHDiABYOggYgCuxhk-oQFt8lLFnxFRePWpEGfQDIymci5bU3z3mVgUCjTNs7AkEOebz4kqDizIznAdsDxUnXIAGPrErLd-XE8otNxGfcd2vlcNWztelzc0-W6uThoyL8bQSQqyaIAfEFUmyOyHIggrHa_YMumSrv8q3i5Tz8klSU1SLrVoj9F53v_gMwzVlQecyUwI11RIIG77N8Hsk9BxU5WjAw0KFe-uQ1id-ewbsZHbxQdCQW0DvYhs0Xg5Q8F49Ur_QmLnreARZbD6PHCFaOucxLkAMaf5e1mFbm1lOd4ncmUoTH8LtC0kSVNMVzy0sltdiCXQJg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\":\"Camisa\",\r\n    \"descricao\":\"Camisa manga longa\",\r\n    \"preco\": \"55\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/produtos/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Keycloak_token_admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "quarkus-app",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "secret",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "alice",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "alice",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:45180/realms/quarkus/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "45180",
+					"path": [
+						"realms",
+						"quarkus",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Keycloak_token_user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "quarkus-app",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "secret",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "bob",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "bob",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:49909/realms/quarkus/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49909",
+					"path": [
+						"realms",
+						"quarkus",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deleta_produto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ0S2xCTDJ3Nk1mNEQ5bWMtN0dwemR6UExHSmVYWDgzdHRQOEpER0pwOTg4In0.eyJleHAiOjE3NTkxODk2ODIsImlhdCI6MTc1OTE4OTA4MiwianRpIjoib25ydHJvOmQ2M2ZhYWQ3LWZkMDAtZDg2My1mZDhiLTU5MzdhM2Y0NDA1MyIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDUxODAvcmVhbG1zL3F1YXJrdXMiLCJzdWIiOiJhMzFmOWE0Yi1kOTg2LTQ0ZDItOGU1My1lNDNhNWM4NjY2OWMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWFya3VzLWFwcCIsInNpZCI6IjE1MDExODRlLTJlZTItNGRiNS04NDUwLTUzYzcxZTdjYmI3ZSIsInNjb3BlIjoibWljcm9wcm9maWxlLWp3dCIsInVwbiI6ImFsaWNlIiwiZ3JvdXBzIjpbImFkbWluIiwidXNlciJdfQ.UK-a96hCJKKHDiABYOggYgCuxhk-oQFt8lLFnxFRePWpEGfQDIymci5bU3z3mVgUCjTNs7AkEOebz4kqDizIznAdsDxUnXIAGPrErLd-XE8otNxGfcd2vlcNWztelzc0-W6uThoyL8bQSQqyaIAfEFUmyOyHIggrHa_YMumSrv8q3i5Tz8klSU1SLrVoj9F53v_gMwzVlQecyUwI11RIIG77N8Hsk9BxU5WjAw0KFe-uQ1id-ewbsZHbxQdCQW0DvYhs0Xg5Q8F49Ur_QmLnreARZbD6PHCFaOucxLkAMaf5e1mFbm1lOd4ncmUoTH8LtC0kSVNMVzy0sltdiCXQJg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "javascript"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/produtos/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

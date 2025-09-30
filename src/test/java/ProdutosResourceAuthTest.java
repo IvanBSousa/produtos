@@ -1,10 +1,9 @@
-package resource;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.*;
 
 import java.math.BigDecimal;
 
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.is;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,12 +11,14 @@ import dto.RequestDTO;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.security.TestSecurity;
+import static io.restassured.RestAssured.given;
 import jakarta.inject.Inject;
+import resource.ProdutosResource;
 import service.ProdutosService;
 
 @QuarkusTest
 @TestHTTPEndpoint(ProdutosResource.class)
-class ProdutosResourceAuthIT {
+class ProdutosResourceAuthTest {
 
     @Inject
     ProdutosService produtosService;
@@ -26,16 +27,12 @@ class ProdutosResourceAuthIT {
 
     @BeforeEach
     void setup() {
-        // Limpar base antes de cada teste
         produtosService.findAllProdutos().forEach(p -> produtosService.deleteProduto(p.id()));
 
-        // Criar produto inicial
         RequestDTO dto = new RequestDTO("Café", "Café preto forte", new BigDecimal("9.90"));
         produtosService.criaProduto(dto);
         produtoId = produtosService.findAllProdutos().get(0).id();
     }
-
-    // ------------------- TESTES COM ROLE ADMIN -------------------
 
     @Test
     @TestSecurity(user = "adminUser", roles = { "admin" })
@@ -100,8 +97,6 @@ class ProdutosResourceAuthIT {
             .statusCode(404);
     }
 
-    // ------------------- TESTES COM ROLE USER -------------------
-
     @Test
     @TestSecurity(user = "normalUser", roles = { "user" })
     void testConsultaProdutosAsUser() {
@@ -137,8 +132,6 @@ class ProdutosResourceAuthIT {
         .then()
             .statusCode(404);
     }
-
-    // ------------------- TESTES SEM AUTENTICAÇÃO -------------------
 
     @Test
     void testAccessWithoutAuthentication() {

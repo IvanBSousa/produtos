@@ -1,5 +1,7 @@
 # produtos
 
+## Projeto criado por Ivan de Bastos Sousa para o curso Quarkus Avançado - CaixaVerso.
+
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.

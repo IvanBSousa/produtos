@@ -1,4 +1,4 @@
-package service;
+
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -24,6 +24,7 @@ import dto.ResponseDTO;
 import io.quarkus.test.junit.QuarkusTest;
 import model.Produtos;
 import repository.ProdutosRepository;
+import service.ProdutosService;
 
 @QuarkusTest
 class ProdutosServiceTest {
@@ -44,12 +45,10 @@ class ProdutosServiceTest {
     void testCriaProduto() throws Exception {
         RequestDTO dto = new RequestDTO("Café", "Café preto forte", new BigDecimal("9.90"));
 
-        // Mock persist apenas para não lançar exceção
         doNothing().when(produtosRepository).persist(any(Produtos.class));
 
         produtosService.criaProduto(dto);
 
-        // Verifica se o produto foi persistido
         ArgumentCaptor<Produtos> captor = ArgumentCaptor.forClass(Produtos.class);
         verify(produtosRepository).persist(captor.capture());
         Produtos produtoPersistido = captor.getValue();
@@ -58,7 +57,6 @@ class ProdutosServiceTest {
         assertEquals("Café preto forte", produtoPersistido.getDescricao());
         assertEquals(new BigDecimal("9.90"), produtoPersistido.getPreco());
 
-        // Verifica se a mensagem foi enviada
         ArgumentCaptor<String> jsonCaptor = ArgumentCaptor.forClass(String.class);
         verify(emissor).send(jsonCaptor.capture());
         String jsonEnviado = jsonCaptor.getValue();
@@ -123,16 +121,7 @@ class ProdutosServiceTest {
         ResponseDTO dto = produtosService.findProdutoById(99L);
         assertNull(dto);
     }
-
-    // @Test
-    // void testDeleteProduto() {
-    //     doNothing().when(produtosRepository).deleteById(1L);
-
-    //     produtosService.deleteProduto(1L);
-
-    //     verify(produtosRepository).deleteById(1L);
-    // }
-
+    
     @Test
     void testDeleteProduto() {
         Long id = 1L;
